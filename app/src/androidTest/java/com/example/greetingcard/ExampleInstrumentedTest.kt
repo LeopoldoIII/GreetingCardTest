@@ -1,15 +1,16 @@
 package com.example.greetingcard
 
+import androidx.compose.ui.test.assertIsOn
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
-import androidx.test.platform.app.InstrumentationRegistry
+import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
-
+import androidx.test.platform.app.InstrumentationRegistry
+import org.junit.Assert.assertEquals
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
-import org.junit.Rule
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -30,7 +31,22 @@ class ExampleInstrumentedTest {
     }
 
     @Test
-    fun testGreeting(){
+    fun testGreeting() {
         composeTestRule.onNodeWithText("Hi, my name is TEST!").assertExists()
+    }
+
+    @Test
+    fun checkBoxExists() {
+        composeTestRule.onNodeWithText("Checkbox Test").assertExists()
+    }
+
+    @Test
+    fun checkboxSelectsProperly() {
+        composeTestRule.waitForIdle()
+        val checkboxNode = composeTestRule.onNodeWithTag("checkbox01", useUnmergedTree = true)
+        composeTestRule.waitForIdle()
+        checkboxNode.performClick()  // Toggle to on if initially off
+        composeTestRule.waitForIdle()  // Ensure state has settled
+        checkboxNode.assertIsOn()
     }
 }

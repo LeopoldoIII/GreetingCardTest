@@ -22,3 +22,7 @@ use full adb commands
     adb start-server
     adb -s emulator-5554 emu kill
     adb -s emulator-5554 reboot
+
+Test if a port is in use 
+
+    lsof -i :5037
